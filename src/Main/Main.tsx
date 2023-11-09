@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import GamePage from "./GamePage";
 
 const Main = () => {
@@ -6,6 +6,13 @@ const Main = () => {
   const [applyUser, setApplyUser] = useState("");
   const [userList, setUserList] = useState<{name: string; stack: number;}[]>([])
   const [isGameStart, setIsGameStart] = useState(false);
+
+  useEffect(()=>{
+    if(!isGameStart){
+      setApplyUser("")
+      setUserList([]);
+    }
+  }, [isGameStart])
 
   return (
     <>
@@ -30,6 +37,7 @@ const Main = () => {
                   setApplyUser("")
                 }
               }}
+              className={"button"}
             >
               인원추가
             </button>
@@ -51,6 +59,7 @@ const Main = () => {
                   const new_list = userList.filter((user)=> user.name !== item.name);
                   setUserList(new_list)
                 }}
+                className={"button"}
               >
                 {item.name}
               </button>
@@ -66,6 +75,7 @@ const Main = () => {
                 onClick={()=>{
                   setIsGameStart(false);
                 }}
+                className={"button"}
               >
                 게임종료
               </button>
@@ -73,6 +83,7 @@ const Main = () => {
                 onClick={()=>{
                   setIsGameStart(true);
                 }}
+                className={"button"}
               >
                 게임시작
               </button>
