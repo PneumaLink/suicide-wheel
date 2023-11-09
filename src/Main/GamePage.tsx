@@ -119,7 +119,8 @@ const GamePage = (
                   value={targetUserStack} 
                   onChange={(e)=>{
                     setTargetUserStack(parseInt(e.target.value)
-                  )}} 
+                  )}}
+                  min={1}
                 />
                 <button 
                   onClick={()=>{
