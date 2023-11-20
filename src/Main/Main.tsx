@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { userListInterface } from "./static/interface/main.interface";
 import SetUser from "./SetUser";
+import PlayGame from "./PlayGame";
 
 const Main = () => {
     const [userList, setUserList] = useState<userListInterface[]>([])
@@ -11,6 +12,16 @@ const Main = () => {
             {
                 stage === 0
                 ?   <SetUser 
+                        userList={userList}
+                        setUserList={setUserList}
+                        setStage={setStage}
+                    />
+                :   null
+            }
+
+            {
+                stage === 1
+                ?   <PlayGame 
                         userList={userList}
                         setUserList={setUserList}
                         setStage={setStage}
