@@ -39,6 +39,44 @@ const Main = () => {
                     />
                 :   null
             }
+
+            {/* 가장 초기상태가 아니면 버튼을 출력시킨다. */}
+            {
+                stage > 0
+                ?   <>
+                        <div>
+                            <button 
+                                onClick={()=>{
+                                    if(!window.confirm("다시 시작할까요?")){
+                                        return ;
+                                    }
+
+                                    const new_list = userList.map((item)=>{
+                                        item.stack_list = []; 
+                                        return item
+                                    });
+                                    setUserList(new_list);
+                                    setStage(1)
+                                }}
+                            >
+                                다시하기
+                            </button>
+                            <button 
+                                onClick={()=>{
+                                    if(!window.confirm("완전히 초기화 후 다시 시작할까요?")){
+                                        return ;
+                                    }
+
+                                    setUserList([]);
+                                    setStage(0)
+                                }}
+                            >
+                                처음부터
+                            </button>
+                        </div>
+                    </>
+                :   null
+            }
         </>
     )
 }
