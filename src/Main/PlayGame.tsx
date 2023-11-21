@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { userListInterface } from "./static/interface/main.interface";
 
 const PlayGame = (
@@ -11,8 +12,12 @@ const PlayGame = (
         setStage: Function;
     }
 ) => {
+
     return (
         <>
+            <div>
+                <label></label>
+            </div>
         </>
     )
 }
