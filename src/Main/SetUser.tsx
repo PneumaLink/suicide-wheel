@@ -5,10 +5,12 @@ const SetUser = (
     {
         userList,
         setUserList,
+        stage,
         setStage,
     }:{
         userList: userListInterface[]
         setUserList: Function;
+        stage: number;
         setStage: Function;
     }
 ) => {
@@ -87,7 +89,7 @@ const SetUser = (
                                     return ;
                                 }
 
-                                setStage(1);
+                                setStage(stage + 1);
                             }}
                         >설정 완료</button>
                     :   null

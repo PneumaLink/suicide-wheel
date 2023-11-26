@@ -15,6 +15,7 @@ const Main = () => {
                 ?   <SetUser 
                         userList={userList}
                         setUserList={setUserList}
+                        stage={stage}
                         setStage={setStage}
                     />
                 :   null
@@ -25,6 +26,7 @@ const Main = () => {
                 ?   <PlayGame 
                         userList={userList}
                         setUserList={setUserList}
+                        stage={stage}
                         setStage={setStage}
                     />
                 :   null
