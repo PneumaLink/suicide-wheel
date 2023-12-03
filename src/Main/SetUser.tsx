@@ -38,10 +38,26 @@ const SetUser = (
         <>
             <div>게임에 참가할 사람들을 등록해주세요.</div>
             <div>
-                <label>이름</label>
-                <input value={userName} onChange={(e)=>{setUserName(e.target.value)}} />
-                <label>Tag(선택)</label>
-                <input value={userTag} onChange={(e)=>{setUserTag(e.target.value)}} />
+                <div>
+                    <label>이름</label>
+                    <input 
+                        value={userName} 
+                        onChange={(e)=>{
+                            setUserName(e.target.value)}
+                        }
+                        placeholder='' 
+                    />
+                </div>
+                <div>
+                    <label>Tag(선택)</label>
+                    <input 
+                        value={userTag} 
+                        onChange={(e)=>{
+                            setUserTag(e.target.value)
+                        }}
+                        placeholder='입력하지 않으면 자동으로 생성됩니다.'
+                    />
+                </div>
             </div>
             <div>
                 <button 
@@ -57,8 +73,9 @@ const SetUser = (
 
                         let user_tag = uuidv4();
 
-                        if(userTag){
-                            user_tag = userTag.replaceAll(' ','');
+                        const remove_space_userTag = userTag.replaceAll(' ','');
+                        if(remove_space_userTag){
+                            user_tag = remove_space_userTag;
                         }
 
                         const isUsedTag_result = isUsedTag({
@@ -92,22 +109,26 @@ const SetUser = (
                     userList.map((user_item, index)=>{
                         return(
                             <>
-                                <label key={index}>
-                                    {user_item.name}{user_item.tag ? `-${user_item.tag}`: null}
-                                </label>
-                                <button 
-                                    onClick={()=>{
-                                        if(!window.confirm(`${user_item.name}님은 게임에 참가하지 않으시나요?`)){
-                                            return ;
-                                        }
+                                <div>
+                                    <label key={index}>
+                                        {user_item.name}{user_item.tag ? ` - ${user_item.tag}`: null}
+                                    </label>
+                                    <button 
+                                        onClick={()=>{
+                                            if(!window.confirm(`${user_item.name}님은 게임에 참가하지 않으시나요?`)){
+                                                return ;
+                                            }
 
-                                        const new_list = [
-                                            ...userList.slice(0, index),
-                                            ...userList.slice(index + 1)
-                                        ];
-                                        setUserList(new_list)
-                                    }}
-                                >-</button>
+                                            const new_list = [
+                                                ...userList.slice(0, index),
+                                                ...userList.slice(index + 1)
+                                            ];
+                                            setUserList(new_list)
+                                        }}
+                                    >
+                                        -
+                                    </button>
+                                </div>
                             </>
                         )
                     })
