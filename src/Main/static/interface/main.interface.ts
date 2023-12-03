@@ -8,6 +8,6 @@ export interface stackInterface {
 export interface userListInterface{
     id?: number;
     name: string;
-    tag?: string;
+    tag: string;
     stack_list: stackInterface[];
 }
