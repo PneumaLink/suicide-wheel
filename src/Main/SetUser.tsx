@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid';
+
 import { useState } from "react";
 import { userListInterface } from "./static/interface/main.interface";
 
@@ -39,6 +41,8 @@ const SetUser = (
 
                         if(userTag){
                             config.tag = userTag
+                        }else{
+                            config.tag = uuidv4();
                         }
 
                         new_list.push(config)

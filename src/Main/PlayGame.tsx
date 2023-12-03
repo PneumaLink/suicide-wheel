@@ -68,24 +68,6 @@ const PlayGame = (
     // 스택을 적용함
     const addStack = () => {
         if(user && targetUser){
-            // const copy_user = user;
-
-            // copy_user?.stack_list.push({
-            //     stack_setter_id: user.id, 
-            //     stack_setter_name: user.name, 
-            //     stack_setter_tag: user.tag, 
-            //     stack:stack
-            // })
-
-            // const copy_target_user = targetUser;
-
-            // targetUser?.stack_list.push({
-            //     stack_setter_id: user.id, 
-            //     stack_setter_name: user.name, 
-            //     stack_setter_tag: user.tag, 
-            //     stack:stack
-            // })
-
             const copy_user_list = [...userList];
 
             for(let index = 0 ; index < copy_user_list.length ; index++){
