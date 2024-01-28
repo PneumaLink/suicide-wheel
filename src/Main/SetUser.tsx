@@ -1,21 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { userListInterface } from "./static/interface/main.interface";
+import { mainContext } from './Main';
 
-const SetUser = (
-    {
-        userList,
-        setUserList,
-        stage,
-        setStage,
-    }:{
-        userList: userListInterface[]
-        setUserList: Function;
-        stage: number;
-        setStage: Function;
-    }
-) => {
+const SetUser = () => {
+    const main_context = useContext(mainContext);
+
     const [userName, setUserName] = useState("")
     const [userTag, setUserTag] = useState("")
 
@@ -63,7 +54,7 @@ const SetUser = (
                 <button 
                     onClick={()=>{
                         
-                        const new_list = [...userList]
+                        const new_list = [...main_context.userList]
 
                         let config:userListInterface = {
                             name: userName,
@@ -92,7 +83,7 @@ const SetUser = (
 
                         new_list.push(config)
 
-                        setUserList(new_list);
+                        main_context.setUserList(new_list);
 
                         initInput();
 
@@ -106,7 +97,7 @@ const SetUser = (
             </div>
             <div>
                 {
-                    userList.map((user_item, index)=>{
+                    main_context.userList.map((user_item, index)=>{
                         return(
                             <>
                                 <div>
@@ -120,10 +111,10 @@ const SetUser = (
                                             }
 
                                             const new_list = [
-                                                ...userList.slice(0, index),
-                                                ...userList.slice(index + 1)
+                                                ...main_context.userList.slice(0, index),
+                                                ...main_context.userList.slice(index + 1)
                                             ];
-                                            setUserList(new_list)
+                                            main_context.setUserList(new_list)
                                         }}
                                     >
                                         -
@@ -136,14 +127,14 @@ const SetUser = (
             </div>
             <div>
                 {
-                    userList.length >= 3
+                    main_context.userList.length >= 3
                     ?   <button 
                             onClick={()=>{
                                 if(!window.confirm("게임을 시작합니다.")){
                                     return ;
                                 }
 
-                                setStage(stage + 1);
+                                main_context.setStage(main_context.stage + 1);
                             }}
                         >설정 완료</button>
                     :   null

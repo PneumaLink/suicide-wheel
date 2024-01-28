@@ -1,16 +1,4 @@
-import { userListInterface } from "./static/interface/main.interface";
-
-const EndGame = (
-    {
-        userList,
-        setUserList,
-        setStage,
-    }:{
-        userList: userListInterface[]
-        setUserList: Function;
-        setStage: Function;
-    }
-) => {
+const EndGame = () => {
     return (
         <>
             게임 끝

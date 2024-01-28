@@ -1,19 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { userListInterface } from "./static/interface/main.interface";
+import { mainContext } from "./Main";
 
-const PlayGame = (
-    {
-        userList,
-        setUserList,
-        stage,
-        setStage,
-    }:{
-        userList: userListInterface[]
-        setUserList: Function;
-        stage: number;
-        setStage: Function;
-    }
-) => {
+const PlayGame = () => {
+
+    const main_context = useContext(mainContext);
+
     /**
      * 1. 첫 번째 유저부터 차례를 넘기며 진행한다.
      * 2. 차례인 사람은 자신은 제외한 다른사람을 지정한다.
@@ -22,12 +14,7 @@ const PlayGame = (
      * 5. 해당사람 차래에서 시작버튼을 누르면 다음 게임이 시작된다.
      */
 
-    /**
-     * 현재 유저의 순서
-     * 
-     */
-
-    // 연재 순서
+    // 현재 순서
     const [userIndex, setUserIndex] = useState(0);
     // 현재 플래이어의 선택 순서가 종료 되었는가?
     const [isSelectedDone, setIsSelectedDone] = useState(false);
@@ -36,14 +23,15 @@ const PlayGame = (
     // 스택을 올리기로 선택한 사람
     const [targetUser, setTargetUser] = useState<userListInterface | null>(null)
 
-    const [stack, setStack] = useState(userList.length)
+    const [stack, setStack] = useState(main_context.userList.length)
 
     useEffect(()=>{
         // 더이상 선택할 수 있는 유저가 없다면, 다음으로 넘어간다.
-        if(userIndex >= userList.length){
-            setStage(stage + 1);
+        if(userIndex >= main_context.userList.length){
+            main_context.setStage(main_context.stage + 1);
         }
-    }, [userIndex, userList, stage])
+
+    }, [userIndex, main_context.userList, main_context.stage])
 
     // 두 유져가 같은 유져인지 확인함
     const isSameUser = (
@@ -68,7 +56,7 @@ const PlayGame = (
     // 스택을 적용함
     const addStack = () => {
         if(user && targetUser){
-            const copy_user_list = [...userList];
+            const copy_user_list = [...main_context.userList];
 
             for(let index = 0 ; index < copy_user_list.length ; index++){
                 if(isSameUser(copy_user_list[index], user)){
@@ -90,7 +78,7 @@ const PlayGame = (
                 }
             }
 
-            setUserList(copy_user_list)
+            main_context.setUserList(copy_user_list)
             initSelected();
         }
     }
@@ -99,7 +87,7 @@ const PlayGame = (
     const initSelected = () => {
         setIsSelectedDone(false);
         setTargetUser(null);
-        setStack(userList.length);
+        setStack(main_context.userList.length);
     }
 
     // 선택을 완료했다면?
@@ -108,7 +96,7 @@ const PlayGame = (
             <>
                 <div>
                     {
-                        userIndex + 1 < userList.length
+                        userIndex + 1 < main_context.userList.length
                         ?   <>
                                 <div>
                                     다음차래 <label>{user?.name}{user?.tag ? `-${user?.tag}` : null}</label>
@@ -151,7 +139,7 @@ const PlayGame = (
             </div>
             <div>
                 {
-                    userList.filter((item)=> item.name !== user?.name || item.tag !== user.tag)
+                    main_context.userList.filter((item)=> item.name !== user?.name || item.tag !== user.tag)
                     ?.map((item)=>{
                         return (
                             <>
@@ -184,7 +172,7 @@ const PlayGame = (
                                     onChange={(e)=>{
                                         setStack(parseInt(e.target.value))
                                     }}
-                                    min={userList.length}
+                                    min={main_context.userList.length}
                                     max={9999}
                                 />
                             </div>
